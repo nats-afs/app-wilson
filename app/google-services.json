@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "879172527448",
+    "firebase_url": "https://w-app-inv.firebaseio.com",
+    "project_id": "w-app-inv",
+    "storage_bucket": "w-app-inv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879172527448:android:2f7adbec58333763",
+        "android_client_info": {
+          "package_name": "com.asforsoft.nats.firebaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879172527448-b18ebdq8ndgrf4q3ckm1u7b1005s98n9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnsaHD-5f2pRzFWyYOW5EQL3FhQLOSEtk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
