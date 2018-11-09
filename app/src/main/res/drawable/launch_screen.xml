@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/wap"></bitmap>
+            android:src="@drawable/wap" />
     </item>
 </layer-list>

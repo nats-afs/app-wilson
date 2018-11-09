@@ -12,9 +12,27 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_product_list">Products</string>
-    <string name="title_product_detail">Product Detail</string>
 
-    <!--Dash Acivity-->
-    <string name="welcome_message">Bienvenido</string>
+    <!--Productos-->
+    <string name="title_product_list">Productos</string>
+    <string name="title_product_detail">Producto Detalles</string>
+
+    <!--Aplication bar -->
+    <string name="appbar_menu_user">Usuario</string>
+    <string name="appbar_menu_settings">Ajustes</string>
+    <string name="appbar_menu_logout">Salir</string>
+
+    <!--Navigation drawer-->
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="nav_drawer_product">Productos</string>
+    <string name="nav_drawer_inventory">Inventario</string>
+    <!--<string name="nav_drawer_inventory">Inventario</string>-->
+    <!---->
+    <string name="title_activity_dashboard">Wilson App</string>
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+
 </resources>
