@@ -39,13 +39,12 @@ public class DashboardActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        initComponents();
 
         if (currentUser != null) {
+            initComponents();
             mAuth = FirebaseAuth.getInstance();
             currentUser = mAuth.getCurrentUser();
         } else {

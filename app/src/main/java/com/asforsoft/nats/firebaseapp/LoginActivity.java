@@ -84,8 +84,8 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            Context thisContext = getApplicationContext();
-            ProgressDialog progressDialog = new ProgressDialog(thisContext);
+//            Context thisContext = getApplicationContext();
+            ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else {
                             Log.e(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(thisContext, "Error de autenticacion", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Error de autenticacion", Toast.LENGTH_SHORT).show();
                             mPasswordView.requestFocus();
                         }
                     });
