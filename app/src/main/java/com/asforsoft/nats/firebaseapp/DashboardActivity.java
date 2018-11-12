@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,8 +23,17 @@ import com.google.firebase.auth.FirebaseUser;
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView tvUserName;
-    TextView tvEmail;
+    private Context fromIntent = DashboardActivity.this;
+
+//    UI Components
+    private TextView tvUserName;
+    private TextView tvEmail;
+    private FloatingActionButton fab; //fab button
+    private Toolbar toolbar;
+    private DrawerLayout drawer; // drawer_layout
+    private NavigationView navigationView;
+    private View headerView;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -33,63 +43,48 @@ public class DashboardActivity extends AppCompatActivity
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-
-        Context fromIntent = DashboardActivity.this;
-
+        initComponents();
 
         if (currentUser != null) {
-            initComponents();
-//            intent = new Intent(fromIntent, DashboardActivity.class);
-//            intent.putExtra("email", currentUser.getEmail());
+            mAuth = FirebaseAuth.getInstance();
+            currentUser = mAuth.getCurrentUser();
         } else {
             Intent intent = new Intent(fromIntent, LoginActivity.class);
             startActivity(intent);
         }
-
-//
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_dashboard);
-
-//        initComponents();
     }
 
     private void initComponents() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View headerView = navigationView.getHeaderView(0);
+        headerView = navigationView.getHeaderView(0);
 
         tvUserName = headerView.findViewById(R.id.user_name);
         tvEmail = headerView.findViewById(R.id.user_email);
-
-//        Bundle datos = getIntent().getExtras();
-//        String email = datos.getString("email");
-
-//        tvUserName.setText("Texto por defecto");
-//        tvEmail.setText(email);
     }
 
+    private void initData() {
+        Bundle datos = getIntent().getExtras();
+        String email = datos.getString("email");
+        tvUserName.setText("Texto por defecto");
+        tvEmail.setText(email);
+    }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -110,12 +105,10 @@ public class DashboardActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,12 +118,11 @@ public class DashboardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Intent intent;
-
         if (id == R.id.nav_product) {
-            intent = new Intent(DashboardActivity.this,ProductListActivity.class);
+            intent = new Intent(fromIntent, ProductListActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_inventory) {
-
+            Toast.makeText(fromIntent, "Moviendo a inventario", Toast.LENGTH_LONG).show();
         }
 //        else if (id == R.id.nav_slideshow) {
 //
@@ -142,7 +134,6 @@ public class DashboardActivity extends AppCompatActivity
 //
 //        }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

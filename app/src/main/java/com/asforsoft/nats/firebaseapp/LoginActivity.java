@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -90,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
-                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
 
@@ -106,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                             mPasswordView.requestFocus();
                         }
                     });
+            progressDialog.dismiss();
         }
     }
 
