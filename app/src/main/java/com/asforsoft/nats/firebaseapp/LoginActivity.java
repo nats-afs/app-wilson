@@ -1,7 +1,6 @@
 package com.asforsoft.nats.firebaseapp;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import static com.asforsoft.nats.firebaseapp.FirebaseService.getAuth;
+import static com.asforsoft.nats.firebaseapp.FirebaseService.getCurrentUser;
 
 /**
  * A login screen that offers login via email/password.
@@ -23,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private EditText mEmailView;
     private EditText mPasswordView;
@@ -86,16 +84,16 @@ public class LoginActivity extends AppCompatActivity {
         } else {
 //            Context thisContext = getApplicationContext();
             ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Iniciando Sesion");
+            progressDialog.setMessage("Espere");
             progressDialog.show();
-            mAuth.signInWithEmailAndPassword(email, password)
+            getAuth().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
 
-                            FirebaseUser user = mAuth.getCurrentUser();
-
                             Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                            intent.putExtra("email", user.getEmail());
+                            intent.putExtra("email", getCurrentUser().getEmail());
 
                             startActivity(intent);
                         } else {
@@ -103,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error de autenticacion", Toast.LENGTH_SHORT).show();
                             mPasswordView.requestFocus();
                         }
+                        progressDialog.dismiss();
                     });
-            progressDialog.dismiss();
         }
     }
 

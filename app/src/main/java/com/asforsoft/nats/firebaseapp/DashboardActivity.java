@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static com.asforsoft.nats.firebaseapp.FirebaseService.getCurrentUser;
+
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,8 +36,6 @@ public class DashboardActivity extends AppCompatActivity
     private NavigationView navigationView;
     private View headerView;
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,9 @@ public class DashboardActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        if (currentUser != null) {
+        if (getCurrentUser() != null) {
             initComponents();
-            mAuth = FirebaseAuth.getInstance();
-            currentUser = mAuth.getCurrentUser();
+            initData();
         } else {
             Intent intent = new Intent(fromIntent, LoginActivity.class);
             startActivity(intent);
@@ -76,10 +75,8 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     private void initData() {
-        Bundle datos = getIntent().getExtras();
-        String email = datos.getString("email");
         tvUserName.setText("Texto por defecto");
-        tvEmail.setText(email);
+        tvEmail.setText(getCurrentUser().getEmail());
     }
 
     @Override
